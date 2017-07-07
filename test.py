@@ -1,4 +1,2 @@
-a = []
-a.append('werw')
-a.append('wgh')
+a, b = [1, 2]
 print(a)
