@@ -2,18 +2,9 @@ import random as rd
 import copy
 
 
-def display(s):
-    for i in range(9):
-        row_str = []
-        for a_1 in s[9 * i:9 * i + 9]:
-            row_str.append(str(a_1))
-        print(' '.join(row_str[0:3]), '|', ' '.join(row_str[3:6]), '|',
-              ' '.join(
-                  row_str[6:9]))
-        if i == 2 or i == 5:
-            print('- - - - - - - - - - -')
-
 class Sudoku:
+    """It generates a random sudoku puzzle and is able to show the puzzle and
+    the solution."""
     def __init__(self):
         def determine_loc(loc):
             for i in range(9):
@@ -90,6 +81,17 @@ class Sudoku:
 
     def show_solution(self):
         display(self.solution)
+
+def display(s):
+    for i in range(9):
+        row_str = []
+        for a_1 in s[9 * i:9 * i + 9]:
+            row_str.append(str(a_1))
+        print(' '.join(row_str[0:3]), '|', ' '.join(row_str[3:6]), '|',
+              ' '.join(
+                  row_str[6:9]))
+        if i == 2 or i == 5:
+            print('- - - - - - - - - - -')
 
 if __name__ == '__main__':
     print('Welcome to the Sudoku Game! -- JoJoX')
