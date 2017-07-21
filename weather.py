@@ -75,10 +75,11 @@ class Weather():
         time_txt = time_txt + dt.timedelta(hours=3)
         time_new = datetime.strftime(time_txt, "%m-%d %I %p")
         time.append(time_new)
+        data_num = len(temp)
 
         major_time = [0]
         w_lines = [[0, None]]
-        for i in range(40):
+        for i in range(data_num):
             if (i % 8) == 0 or i == 0:
                 major_time.append(time[i])
 
@@ -97,7 +98,7 @@ class Weather():
 
         plt.figure(1, (10, 5))
         ax = plt.axes(xlim=(0, 40))
-        plt.plot(range(40), temp, c='pink')
+        plt.plot(range(data_num), temp, c='pink')
         y_min, y_max = ax.get_ylim()
         ax.set_ylim(y_min, y_max)
         for i in range(len(w_lines)):
