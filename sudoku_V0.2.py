@@ -30,40 +30,55 @@ class Sudoku:
             block_s[n_block].append(a)
             return row_s, col_s, block_s
 
-        row, col, block = {}, {}, {}
-        for i in range(9):
-            row[i], col[i], block[i] = [], [], []
-        choice_full = list(range(1, 10))
+        while True:
+            row, col, block = {}, {}, {}
+            for i in range(9):
+                row[i], col[i], block[i] = [], [], []
+            choice_full = list(range(1, 10))
 
-        for mult in range(9):
-            row_temp = copy.deepcopy(row)
-            col_temp = copy.deepcopy(col)
-            block_temp = copy.deepcopy(block)
+            for mult in range(9):
+                row_temp = copy.deepcopy(row)
+                col_temp = copy.deepcopy(col)
+                block_temp = copy.deepcopy(block)
 
-            i = 0
-            while True:
-                loc = mult * 9 + i
-                n_row, n_col, n_block = determine_loc(loc)
-                choice_used = row_temp[n_row] + col_temp[n_col] + block_temp[
-                    n_block]
-                choice = [item for item in choice_full if
-                          item not in choice_used]
-                if choice:
-                    a = rd.choice(choice)
-                else:
-                    i = 0
-                    row_temp = copy.deepcopy(row)
-                    col_temp = copy.deepcopy(col)
-                    block_temp = copy.deepcopy(block)
-                    continue
-                row_temp, col_temp, block_temp = record(loc, a, row_temp,
-                                                        col_temp, block_temp)
-                i += 1
-                if i > 8:
+                i = 0
+                try_limit = 0
+                while True:
+                    loc = mult * 9 + i
+                    n_row, n_col, n_block = determine_loc(loc)
+                    choice_used = row_temp[n_row] + col_temp[n_col] + block_temp[
+                        n_block]
+                    choice = [item for item in choice_full if
+                              item not in choice_used]
+                    try_limit += 1
+                    if try_limit > 100:
+                        break
+
+                    if choice:
+                        a = rd.choice(choice)
+                    else:
+                        i = 0
+                        row_temp = copy.deepcopy(row)
+                        col_temp = copy.deepcopy(col)
+                        block_temp = copy.deepcopy(block)
+                        continue
+                    row_temp, col_temp, block_temp = record(loc, a, row_temp,
+                                                            col_temp, block_temp)
+                    i += 1
+                    if i > 8:
+                        break
+
+                if i <= 8:
                     break
-            row = copy.deepcopy(row_temp)
-            col = copy.deepcopy(col_temp)
-            block = copy.deepcopy(block_temp)
+                else:
+                    row = copy.deepcopy(row_temp)
+                    col = copy.deepcopy(col_temp)
+                    block = copy.deepcopy(block_temp)
+
+            if i <= 8:
+                continue
+            break
+
 
         s = []
         for values in row.values():
