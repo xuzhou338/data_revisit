@@ -85,13 +85,17 @@ class Sudoku:
             s += values
         self.solution = s
 
-    def show_puzzle(self, n=20):
+    def make_puzzle(self, n=20):
         s = copy.deepcopy(self.solution)
         empty_choice = list(range(80))
         rd.shuffle(empty_choice)
         for i in range(n):
             i_1 = empty_choice[i]
             s[i_1] = ' '
+        return s
+
+    def show_puzzle(self, n=20):
+        s = self.make_puzzle(n)
         display(s)
 
     def show_solution(self):
